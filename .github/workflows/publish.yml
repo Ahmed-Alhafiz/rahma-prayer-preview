@@ -24,7 +24,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl -L --fail --retry 3 'https://sdmntprukwest.oaiusercontent.com/files/00000000-45c4-8243-9567-60c7155f013c/raw?se=2026-09-07T07%3A42%3A12Z&sp=r&sv=2026-02-06&sr=b&scid=d5a0e98e-4629-5750-bd72-7a71f38e489c&skoid=b32d65cd-c8f1-46fb-90df-c208671889d4&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-07T04%3A48%3A20Z&ske=2026-09-08T04%3A48%3A20Z&sks=b&skv=2026-02-06&sig=s88brWDzXDQBZy56grVXGF9Fjaj18UX3FoDfspwCl98%3D' -o /tmp/rahma-web.zip
+          curl -L --fail --retry 3 'https://sdmntprnortheu.oaiusercontent.com/files/00000000-bccc-81f4-9134-1695b4ff2261/raw?se=2026-09-07T09%3A55%3A20Z&sp=r&sv=2026-02-06&sr=b&scid=95b13254-81e8-5319-a4f9-ab45a85ad165&skoid=b32d65cd-c8f1-46fb-90df-c208671889d4&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-07T08%3A50%3A20Z&ske=2026-09-08T08%3A50%3A20Z&sks=b&skv=2026-02-06&sig=i1DmBnpCwc62iCc12kZZDHOPoFiQaoB3ZbhnZLgVvg8%3D' -o /tmp/rahma-web.zip
           rm -rf /tmp/rahma-site
           mkdir -p /tmp/rahma-site
           unzip -q /tmp/rahma-web.zip -d /tmp/rahma-site
@@ -57,5 +57,5 @@ jobs:
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           cp -a /tmp/rahma-site/. .
           git add -A
-          git commit -m 'Publish Rahma web preview 0.0.13'
+          git commit -m 'Publish Rahma web preview 0.0.14'
           git push --force origin gh-pages
