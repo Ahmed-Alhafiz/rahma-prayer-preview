@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "review_status": "approved",
+  "rights_status": "verified",
+  "clips": {
+    "welcome": "assets/voice/welcome.mp3",
+    "book": "assets/voice/book.mp3",
+    "complete": "assets/voice/complete.mp3"
+  },
+  "note": "Partial pack of three clips derived from the owner-approved M2 sample. Other cue recordings are not claimed ready. See content/production/M2_AUDIO_QA.json and VOICE_RIGHTS_M2.md.",
+  "profile_id": "rahma_m2"
+}
