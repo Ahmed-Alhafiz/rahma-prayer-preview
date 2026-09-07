@@ -24,7 +24,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl -L --fail --retry 3 'https://sdmntpritalynorth.oaiusercontent.com/files/00000000-6ad8-8246-8d09-67e5fbfb1c95/raw?se=2026-09-07T03%3A54%3A59Z&sp=r&sv=2026-02-06&sr=b&scid=5a8565a9-cddb-5a56-84f7-32e003dd74b3&skoid=b32d65cd-c8f1-46fb-90df-c208671889d4&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-06T21%3A27%3A26Z&ske=2026-09-07T21%3A27%3A26Z&sks=b&skv=2026-02-06&sig=K%2B7cSPcGfeF8tlrUsKrlb4jRAKXkpW0dbZ7ay%2BGR/vs%3D' -o /tmp/rahma-web.zip
+          curl -L --fail --retry 3 'https://sdmntprukwest.oaiusercontent.com/files/00000000-f9a8-8243-acab-75b09ef4bc3f/raw?se=2026-09-07T05%3A18%3A20Z&sp=r&sv=2026-02-06&sr=b&scid=9430cda4-0d9e-5ae5-be42-5e86f975fc4b&skoid=b32d65cd-c8f1-46fb-90df-c208671889d4&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-06T21%3A23%3A13Z&ske=2026-09-07T21%3A23%3A13Z&sks=b&skv=2026-02-06&sig=f5UPPVAcQgjmtiMpBFAS9VK1vsw8Xw7kSzgwGMX2l/E%3D' -o /tmp/rahma-web.zip
           rm -rf /tmp/rahma-site
           mkdir -p /tmp/rahma-site
           unzip -q /tmp/rahma-web.zip -d /tmp/rahma-site
