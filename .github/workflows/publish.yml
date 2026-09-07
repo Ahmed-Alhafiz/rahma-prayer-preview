@@ -1,0 +1,61 @@
+name: Publish compiled Rahma preview
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rahma-preview-publish
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out preview repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Download verified compiled web build
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 'https://sdmntpritalynorth.oaiusercontent.com/files/00000000-6ad8-8246-8d09-67e5fbfb1c95/raw?se=2026-09-07T03%3A54%3A59Z&sp=r&sv=2026-02-06&sr=b&scid=5a8565a9-cddb-5a56-84f7-32e003dd74b3&skoid=b32d65cd-c8f1-46fb-90df-c208671889d4&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-06T21%3A27%3A26Z&ske=2026-09-07T21%3A27%3A26Z&sks=b&skv=2026-02-06&sig=K%2B7cSPcGfeF8tlrUsKrlb4jRAKXkpW0dbZ7ay%2BGR/vs%3D' -o /tmp/rahma-web.zip
+          rm -rf /tmp/rahma-site
+          mkdir -p /tmp/rahma-site
+          unzip -q /tmp/rahma-web.zip -d /tmp/rahma-site
+          test -f /tmp/rahma-site/index.html
+          test -f /tmp/rahma-site/main.dart.js
+
+      - name: Adapt compiled build for preview repository path
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('/tmp/rahma-site/index.html')
+          text = p.read_text(encoding='utf-8')
+          old = '<base href="/rahma-prayer/">'
+          new = '<base href="/rahma-prayer-preview/">'
+          if old not in text:
+              raise SystemExit('expected base href not found')
+          p.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+          touch /tmp/rahma-site/.nojekyll
+
+      - name: Publish compiled files to gh-pages branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch --orphan gh-pages
+          git rm -rf .
+          cp -a /tmp/rahma-site/. .
+          git add -A
+          git commit -m 'Publish verified Rahma web preview'
+          git push --force origin gh-pages
