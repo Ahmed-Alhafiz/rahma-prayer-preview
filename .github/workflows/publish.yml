@@ -54,10 +54,8 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git switch --orphan gh-pages
-          git rm -rf .
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           cp -a /tmp/rahma-site/. .
           git add -A
           git commit -m 'Publish verified Rahma web preview'
           git push --force origin gh-pages
-
-# Triggered after repository initialization so the push workflow can run.
